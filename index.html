@@ -1,0 +1,647 @@
+[07.10.2026 23:10] 9: <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAIN — одежда с характером</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #fafaf7;
+            color: #111;
+            line-height: 1.6;
+        }
+
+        /* ===== ШАПКА ===== */
+        header {
+            background: #fafaf7;
+            padding: 22px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #111;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #111;
+            font-family: Impact, 'Arial Black', sans-serif;
+        }
+        .logo span { color: #ff3b00; }
+        nav a {
+            color: #111;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #ff3b00; }
+        .cart-btn {
+            background: #111;
+            color: #fafaf7;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .cart-btn:hover { background: #ff3b00; }
+
+        /* ===== ГЕРОЙ ===== */
+        .hero {
+            padding: 120px 40px;
+            text-align: center;
+            border-bottom: 1px solid #111;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "✕ ◯ ✕ ◯ ✕ ◯ ✕ ◯ ✕ ◯ ✕";
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            font-size: 2em;
+            color: #eee;
+            letter-spacing: 40px;
+            opacity: 0.6;
+            white-space: nowrap;
+        }
+        .hero::after {
+            content: "◯ ✕ ◯ ✕ ◯ ✕ ◯ ✕ ◯ ✕ ◯";
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            font-size: 2em;
+            color: #eee;
+            letter-spacing: 40px;
+            opacity: 0.6;
+            white-space: nowrap;
+        }
+        .hero h1 {
+            font-size: 5em;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-family: Impact, 'Arial Black', sans-serif;
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 .accent { color: #ff3b00; }
+        .hero p {
+            font-size: 1.1em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555;
+            position: relative;
+            z-index: 2;
+        }
+        .hero .tagline {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #888;
+            font-style: italic;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero .location {
+            margin-top: 15px;
+            font-size: 0.75em;
+            letter-spacing: 4px;
+            color: #aaa;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== КАТАЛОГ ===== */
+        .catalog {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+        .section-title {
+[07.10.2026 23:10] 9: text-align: center;
+            font-size: 0.9em;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 60px;
+        }
+        .section-title::before,
+        .section-title::after {
+            content: "— ";
+            color: #ff3b00;
+        }
+        .section-title::after { content: " —"; }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+
+        .product {
+            background: #fff;
+            border: 1px solid #111;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        .product:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 #111;
+        }
+        .product-img {
+            width: 100%;
+            height: 320px;
+            background: #f0f0ec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            border-bottom: 1px solid #111;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-img::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, #ff3b00 2px, transparent 2px),
+                radial-gradient(circle at 70% 60%, #111 3px, transparent 3px),
+                radial-gradient(circle at 40% 80%, #ff3b00 1px, transparent 1px),
+                radial-gradient(circle at 85% 20%, #111 2px, transparent 2px),
+                radial-gradient(circle at 15% 70%, #111 1px, transparent 1px);
+            opacity: 0.15;
+        }
+        .product-info {
+            padding: 22px;
+        }
+        .product-info h3 {
+            font-size: 1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .product-art {
+            font-size: 0.75em;
+            color: #888;
+            font-style: italic;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            min-height: 2.2em;
+        }
+        .price {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .buy-btn {
+            width: 100%;
+            background: transparent;
+            color: #111;
+            border: 1px solid #111;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .buy-btn:hover {
+            background: #111;
+            color: #fafaf7;
+        }
+
+        /* ===== О БРЕНДЕ ===== */
+        .about {
+            background: #111;
+            color: #fafaf7;
+            padding: 100px 40px;
+            text-align: center;
+        }
+        .about h2 {
+            font-size: 3em;
+            letter-spacing: 6px;
+            margin-bottom: 30px;
+            font-family: Impact, 'Arial Black', sans-serif;
+        }
+        .about h2 .accent { color: #ff3b00; }
+        .about p {
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-size: 1.05em;
+            line-height: 1.9;
+            color: #ccc;
+        }
+        .about .manifesto {
+            margin-top: 40px;
+            font-size: 0.9em;
+            letter-spacing: 3px;
+            color: #ff3b00;
+            text-transform: uppercase;
+        }
+        .about .authors {
+            margin-top: 30px;
+            font-size: 0.75em;
+            letter-spacing: 3px;
+            color: #666;
+            text-transform: uppercase;
+        }
+[07.10.2026 23:10] 9: /* ===== КОРЗИНА ===== */
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -440px;
+            width: 420px;
+            height: 100vh;
+            background: #fafaf7;
+            border-left: 1px solid #111;
+            transition: right 0.3s;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-panel.open { right: 0; }
+        .cart-header {
+            padding: 25px;
+            border-bottom: 1px solid #111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-header h3 {
+            font-size: 1.1em;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #111;
+            font-family: inherit;
+        }
+        .close-btn:hover { color: #ff3b00; }
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 25px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item-info h4 {
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .cart-item-info span {
+            color: #ff3b00;
+            font-weight: bold;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-family: inherit;
+        }
+        .remove-btn:hover { color: #ff3b00; }
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            padding: 60px 0;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+        }
+        .cart-footer {
+            padding: 25px;
+            border-top: 1px solid #111;
+        }
+        .total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .checkout-btn {
+            width: 100%;
+            background: #ff3b00;
+            color: #fff;
+            border: none;
+            padding: 16px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .checkout-btn:hover { background: #111; }
+
+        /* ===== ПОДВАЛ ===== */
+        footer {
+            background: #111;
+            color: #888;
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid #ff3b00;
+        }
+        footer .logo-footer {
+            font-size: 2em;
+            letter-spacing: 4px;
+            color: #fafaf7;
+            margin-bottom: 20px;
+            font-family: Impact, 'Arial Black', sans-serif;
+        }
+        footer .logo-footer span { color: #ff3b00; }
+        footer p {
+            margin: 8px 0;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #ff3b00;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: 0.2s;
+        }
+        footer a:hover { border-bottom-color: #ff3b00; }
+        .tg-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 30px;
+            background: #ff3b00;
+[07.10.2026 23:10] 9: color: #fff !important;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            border-bottom: none !important;
+        }
+        .tg-btn:hover { background: #fafaf7; color: #111 !important; }
+        .authors-footer {
+            margin-top: 30px;
+            font-size: 0.7em;
+            letter-spacing: 3px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        /* ===== УВЕДОМЛЕНИЕ ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #111;
+            color: #fafaf7;
+            padding: 15px 30px;
+            border: 1px solid #ff3b00;
+            letter-spacing: 2px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            transition: transform 0.3s;
+            z-index: 300;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 80px 20px; }
+            .hero h1 { font-size: 3em; letter-spacing: 4px; }
+            .catalog { padding: 60px 20px; }
+            .cart-panel { width: 100%; right: -100%; }
+            .about { padding: 60px 20px; }
+            .about h2 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header>
+        <div class="logo">PAIN<span>.</span></div>
+        <nav>
+            <a href="#catalog">Каталог</a>
+            <a href="#about">О бренде</a>
+            <a href="https://t.me/Mrr0bo1" target="_blank">Telegram</a>
+        </nav>
+        <button class="cart-btn" onclick="toggleCart()">
+            Корзина [<span id="cart-count">0</span>]
+        </button>
+    </header>
+
+    <!-- ГЕРОЙ -->
+    <section class="hero">
+        <h1>PAIN<span class="accent">.</span></h1>
+        <p>Одежда из бумаги · Необычные принты</p>
+        <div class="tagline">"Ты не поймёшь. И это правильно."</div>
+        <div class="location">Rostov-on-Don · 2026</div>
+    </section>
+
+    <!-- КАТАЛОГ -->
+    <section class="catalog" id="catalog">
+        <div class="section-title">Collection 001</div>
+        <div class="products" id="products"></div>
+    </section>
+
+    <!-- О БРЕНДЕ -->
+    <section class="about" id="about">
+        <h2>О <span class="accent">PAIN</span></h2>
+        <p>Мы делаем одежду для тех, кто не боится выглядеть странно. Каждая вещь — это бумажная основа с авторским рисунком, который ты не увидишь больше нигде.</p>
+        <p>Наши принты — непонятные. Они не несут смысла. Они несут только тебя.</p>
+        <p>Для мальчиков и девочек 14–18. Для тех, кто уже устал от «нормального».</p>
+        <div class="manifesto">✕ DRIVEN BY QUALITY ✕</div>
+        <div class="authors">Created by Alexander Sokolov &amp; Rashid Yusubov</div>
+    </section>
+
+    <!-- КОРЗИНА -->
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h3>Корзина</h3>
+            <button class="close-btn" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart">пусто</div>
+        </div>
+        <div class="cart-footer">
+            <div class="total">
+                <span>Итого:</span>
+                <span id="total-price">0 ₽</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Заказать</button>
+        </div>
+    </div>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="logo-footer">PAIN<span>.</span></div>
+        <p>Одежда с бумажными принтами · 14–18</p>
+[07.10.2026 23:10] 9: <p>Заказы и вопросы — только в Telegram</p>
+        <a href="https://t.me/Mrr0bo1" target="_blank" class="tg-btn">✈ Написать в Telegram</a>
+        <div class="authors-footer">
+            Created by Alexander Sokolov &amp; Rashid Yusubov<br>
+            Rostov-on-Don · 2026
+        </div>
+        <p style="margin-top:20px; opacity:0.5; font-size:0.8em;">© 2026 PAIN · Все права защищены</p>
+    </footer>
+
+    <!-- УВЕДОМЛЕНИЕ -->
+    <div class="toast" id="toast">Добавлено</div>
+
+    <script>
+        // ===== ТОВАРЫ =====
+        const products = [
+            { 
+                id: 1, 
+                name: "Футболка «Пятно»", 
+                art: "Непонятное пятно с глазами",
+                price: 2200, 
+                emoji: "👕" 
+            },
+            { 
+                id: 2, 
+                name: "Худи «Лабиринт»", 
+                art: "Бумажный лабиринт без выхода",
+                price: 3800, 
+                emoji: "🧥" 
+            },
+            { 
+                id: 3, 
+                name: "Джинсы «Схема»", 
+                art: "Чертёж, который ничего не значит",
+                price: 4200, 
+                emoji: "👖" 
+            },
+            { 
+                id: 4, 
+                name: "Лонгслив «Фигуры»", 
+                art: "Круги, квадраты и что-то ещё",
+                price: 2600, 
+                emoji: "👔" 
+            },
+            { 
+                id: 5, 
+                name: "Куртка «Обрывок»", 
+                art: "Разорванный рисунок на бумаге",
+                price: 6500, 
+                emoji: "🧥" 
+            },
+            { 
+                id: 6, 
+                name: "Свитшот «Шум»", 
+                art: "Хаотичные линии и точки",
+                price: 3400, 
+                emoji: "👕" 
+            },
+            { 
+                id: 7, 
+                name: "Футболка «Символ»", 
+                art: "Знак, которого не существует",
+                price: 2200, 
+                emoji: "👕" 
+            },
+            { 
+                id: 8, 
+                name: "Кроп-топ «PAIN»", 
+                art: "Укороченная, огромное лого сзади",
+                price: 3800, 
+                emoji: "🩳" 
+            },
+        ];
+
+        let cart = [];
+
+        // ===== ОТРИСОВКА ТОВАРОВ =====
+        const productsEl = document.getElementById('products');
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product';
+            card.innerHTML = 
+                <div class="product-img">${p.emoji}</div>
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <div class="product-art">${p.art}</div>
+                    <div class="price">${p.price.toLocaleString('ru-RU')} ₽</div>
+                    <button class="buy-btn" onclick="addToCart(${p.id})">В корзину</button>
+                </div>
+            ;
+            productsEl.appendChild(card);
+        });
+
+        // ===== ДОБАВЛЕНИЕ В КОРЗИНУ =====
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCart();
+            showToast(✓ ${product.name});
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        // ===== ОБНОВЛЕНИЕ КОРЗИНЫ =====
+        function updateCart() {
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const totalEl = document.getElementById('total-price');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            countEl.textContent = totalCount;
+[07.10.2026 23:10] 9: if (cart.length === 0) {
+                itemsEl.innerHTML = '<div class="empty-cart">пусто</div>';
+                totalEl.textContent = '0 ₽';
+                return;
+            }
+
+            itemsEl.innerHTML = cart.map(item => 
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.name} × ${item.qty}</h4>
+                        <span>${(item.price * item.qty).toLocaleString('ru-RU')} ₽</span>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">✕</button>
+                </div>
+            ).join('');
+
+            const total = cart.reduce((sum, item)
